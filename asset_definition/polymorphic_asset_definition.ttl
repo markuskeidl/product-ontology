@@ -1,0 +1,63 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cx-core: <https://w3id.org/catenax/ontology/core#> .
+@prefix cx-vehicle: <https://w3id.org/catenax/ontology/vehicle#> .
+@prefix cx-fx: <https://w3id.org/catenax/ontology/function#> .
+@prefix cx-behaviour: <https://w3id.org/catenax/ontology/behaviour#> .
+@prefix asset_a: <https://example.com#asset_a#> .
+@prefix asset_b: <https://example.com#asset_b#> .
+
+
+# Asset 'A' provides vehicle and part data.
+
+asset_a:PhysicalObjectObjectShape a sh:NodeShape ;
+    sh:targetClass cx-core:PhysicalObject ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:in ( cx-vehicle:Vehicle cx-vehicle:Part ) ;
+    ] .
+
+asset_a:VehicleShape a sh:NodeShape ;
+    sh:targetClass cx-vehicle:Vehicle;
+    sh:property [
+        sh:path cx-core:id ;
+        sh:pattern "^B" ;    
+    ] ;
+
+    sh:property asset_a:HasPartShape .
+
+asset_a:HasPartShape a sh:PropertyShape; 
+        sh:path cx-vehicle:hasPart ;
+        sh:node asset_a:PartShape.
+
+asset_a:PartShape a sh:NodeShape ;
+    sh:targetClass cx-vehicle:Part;
+    sh:property [
+        sh:path cx-core:id;
+        sh:pattern "^C" ;    
+    ] .
+
+# Asset 'B' provides a function.
+
+asset_b:FunctionShape a sh:NodeShape ;
+    sh:targetClass cx-fx:Function ;
+    sh:property [
+        sh:path rdf:type;
+        sh:in ( cx-behaviour:RemainingUsefulLife  cx-behaviour:HealthcareIdentificator ) ;
+    ] .
+
+asset_b:RemainingUsefulLifeShape a sh:NodeShape ;
+    sh:targetClass cx-behaviour:RemainingUsefulLife ;
+    sh:property [
+        sh:path cx-behaviour:componentDescription;
+        sh:in ("Gearoil" "Gearset")
+    ] ;
+
+    sh:property [
+        sh:path cx-behaviour:response;
+        sh:class cx-behaviour:RemainingUsefulLifeResponse
+    ] .
