@@ -22,12 +22,8 @@ title: Catena-X Namespace
 description: W3ID.org Namespace for the Catena-X Association 
 domain: catenax-ng.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://catenax-ng.github.io/ # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /product-knowledge       # place folder name if the site is served in a subfolder
+baseurl: /product-ontology       # place folder name if the site is served in a subfolder
 github_username:  drcgjung
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
