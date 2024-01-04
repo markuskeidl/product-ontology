@@ -10,16 +10,15 @@ PREFIX cx-taxo: <https://w3id.org/catenax/ontology/taxonomy#>
 
 #This query returns the required assets and arguments for the selected function result and the observed part types.
 
-select ?assetTarget ?nodeShapeTarget ?propertyShapeTarget where {  
+select distinct ?assetTarget ?nodeShapeTarget ?propertyShapeTarget where {  
     
     VALUES ?result {cx-behaviour:RemainingUsefulLifeResult}
-    VALUES ?observationType {cx-taxo:Clutch}
     
 	#source
     ?output sh:path ?result.
     ?output cx-sh:outputOf ?functionShape. 
   	?assetFunction cx-sh:shapeObject ?functionShape.
-    ?functionShape cx-sh:extensionOf+ ?parentFunctionShape.
+    ?functionShape cx-sh:extensionOf* ?parentFunctionShape.
     ?parentFunctionShape sh:property ?functionProperty.
     ?functionProperty cx-sh:hasAsArgument ?argument.
     
@@ -30,9 +29,9 @@ select ?assetTarget ?nodeShapeTarget ?propertyShapeTarget where {
 
     #matching
     ?functionProperty sh:in ?parameters.
-    ?parameters rdf:rest*/rdf:first ?observationType.
+    ?parameters rdf:rest*/rdf:first ?value.
     ?propertyShape sh:in ?parameters_target.
-    ?parameters_target rdf:rest*/rdf:first ?observationType.
+    ?parameters_target rdf:rest*/rdf:first ?value.
     
     { 
         select ?assetTarget ?nodeShapeTarget ?propertyShapeTarget 

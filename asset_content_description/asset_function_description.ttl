@@ -42,17 +42,12 @@
 
 # The Shapes graph of Asset 'A'
 asset_a:asset_a a cx-common:GraphAsset;
- edc:description "Function Asset Implementing Prognosis Functions (RemainingUsefulLife & HealthIndication)"^^xsd:string;
+ edc:description "Function Asset Implementing Prognosis Functions (RemainingUsefulLife)"^^xsd:string;
  cx-sh:shapeObject asset_a:PrognosisFunctionShape, asset_a:RemainingUsefulLifeShape, asset_a:HealthIndicationShape.
 
 # Prognosis Function
 asset_a:PrognosisFunctionShape a sh:NodeShape ;
     sh:targetClass cx-behaviour:PrognosisFunction;
-    sh:property[
-        cx-sh:hasAsArgument cx-reliability:observationOf;
-        sh:path cx-behaviour:observationType;
-        sh:in ( cx-taxo:GearSet cx-taxo:GearOil cx-taxo:Clutch );
-    ];
     sh:property[
         cx-sh:hasAsArgument cx-reliability:countingMethod;
         sh:path cx-behaviour:countingMethod;
@@ -78,6 +73,11 @@ asset_a:PrognosisFunctionShape a sh:NodeShape ;
 asset_a:RemainingUsefulLifeShape a sh:NodeShape ;
     cx-sh:extensionOf asset_a:PrognosisFunctionShape;
     sh:targetClass cx-behaviour:RemainingUsefulLife ;
+      sh:property[
+        cx-sh:hasAsArgument cx-reliability:observationOf;
+        sh:path cx-behaviour:observationType;
+        sh:in ( cx-taxo:GearSet cx-taxo:GearOil );
+    ];
     sh:property asset_a:RemainingUsefulLifeResultSahpe.
 
 asset_a:RemainingUsefulLifeResult  a sh:PropertyShape;
@@ -85,62 +85,54 @@ asset_a:RemainingUsefulLifeResult  a sh:PropertyShape;
     sh:path cx-behaviour:RemainingUsefulLifeResult .
 
 
-asset_a:HealthIndicationShape a sh:NodeShape ;
-    cx-sh:extensionOf asset_a:PrognosisFunctionShape;
-    sh:targetClass cx-behaviour:HealthIndication ;
-    sh:property asset_a:HealthIndicationResultShape.
-
-asset_a:HealthIndicationResultShape  a sh:PropertyShape;
-    cx-sh:outputOf asset_a:HealthIndicationShape;
-    sh:path cx-behaviour:HealthIndicationResult .
-
-
-
 # The Shapes graph of Asset 'B'
 asset_b:asset_b a cx-common:GraphAsset;
- edc:description "Sample Asset Hosting Load Spectrum of Parts (GearSet Gearoil)"^^xsd:string;
- cx-sh:shapeObject asset_b:LoadSpectrumShape.
- 
-asset_b:LoadSpectrumShape a sh:NodeShape ;
-    sh:targetClass  cx-reliability:LoadSpectrum;
-    sh:property asset_b:observationOfShape, 
-                asset_b:countingValueShape, 
-                asset_b:countingUnitShape, 
-                asset_b:countingMethodShape, 
-                asset_b:channelsShape, 
-                asset_b:classesShape, 
-                asset_b:valuesShape.
+ edc:description "Function Asset Implementing Prognosis Functions (HealthIndication)"^^xsd:string;
+ cx-sh:shapeObject asset_b:PrognosisFunctionShape, asset_b:RemainingUsefulLifeShape, asset_b:HealthIndicationShape.
 
-asset_b:observationOfShape a sh:PropertyShape;
-    sh:path cx-reliability:observationOf;
-    sh:in (cx-taxo:GearOil cx-taxo:GearSet).
+# Prognosis Function
+asset_b:PrognosisFunctionShape a sh:NodeShape ;
+    sh:targetClass cx-behaviour:PrognosisFunction;
+    sh:property[
+        cx-sh:hasAsArgument cx-reliability:countingMethod;
+        sh:path cx-behaviour:countingMethod;
+    ];
+    sh:property[
+        cx-sh:hasAsArgument cx-reliability:countingValue;
+        sh:path cx-behaviour:countingValue;
+    ];
+    sh:property[
+        cx-sh:hasAsArgument cx-reliability:countingUnit;
+        sh:path cx-behaviour:countingUnit;
+    ];
+    sh:property[
+        cx-sh:hasAsArgument cx-reliability:channels;
+        sh:path cx-behaviour:headerChannels;
+    ];
+    sh:property[
+        cx-sh:hasAsArgument cx-reliability:classes;
+        sh:path cx-behaviour:bodyClasses;
+    ].
 
-asset_b:countingValueShape a sh:PropertyShape;
-    sh:path cx-reliability:countingValue.
+asset_b:HealthIndicationShape a sh:NodeShape ;
+    cx-sh:extensionOf asset_b:PrognosisFunctionShape;
+    sh:targetClass cx-behaviour:HealthIndication ;
+      sh:property[
+        cx-sh:hasAsArgument cx-reliability:observationOf;
+        sh:path cx-behaviour:observationType;
+        sh:in ( cx-taxo:Clutch );
+    ];
+    sh:property asset_b:HealthIndicationResultShape.
 
-asset_b:countingUnitShape a sh:PropertyShape;
-    sh:path cx-reliability:countingUnit.
-
-asset_b:countingMethodShape a sh:PropertyShape;
-    sh:path cx-reliability:countingMethod.
-
-asset_b:countingMethodShape a sh:PropertyShape;
-    sh:path cx-reliability:countingMethod.
-
-asset_b:channelsShape a sh:PropertyShape;
-    sh:path cx-reliability:channels.
-
-asset_b:classesShape a sh:PropertyShape;
-    sh:path cx-reliability:classes.
-
-asset_b:valuesShape a sh:PropertyShape;
-    sh:path cx-reliability:values.
+asset_b:HealthIndicationResultShape  a sh:PropertyShape;
+    cx-sh:outputOf asset_b:HealthIndicationShape;
+    sh:path cx-behaviour:HealthIndicationResult .
 
 
 
 # The Shapes graph of Asset 'C'
 asset_c:asset_c a cx-common:GraphAsset;
- edc:description "Sample Asset Hosting Load Spectrum of Parts (Clutch)"^^xsd:string;
+ edc:description "Sample Asset Hosting Load Spectrum of Parts (GearSet GearOil Clutch)"^^xsd:string;
  cx-sh:shapeObject asset_c:LoadSpectrumShape.
  
 asset_c:LoadSpectrumShape a sh:NodeShape ;
@@ -155,7 +147,7 @@ asset_c:LoadSpectrumShape a sh:NodeShape ;
 
 asset_c:observationOfShape a sh:PropertyShape;
     sh:path cx-reliability:observationOf;
-    sh:in (cx-taxo:Clutch).
+    sh:in (cx-taxo:GearOil cx-taxo:GearSet cx-taxo:Clutch).
 
 asset_c:countingValueShape a sh:PropertyShape;
     sh:path cx-reliability:countingValue.
@@ -177,5 +169,3 @@ asset_c:classesShape a sh:PropertyShape;
 
 asset_c:valuesShape a sh:PropertyShape;
     sh:path cx-reliability:values.
-
-
