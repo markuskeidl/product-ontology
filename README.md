@@ -38,7 +38,7 @@ They may be used in conjunction with the [Tractus-X Extensions for the Eclipse D
 
 ## What's inside?
 
-The [Catena-X Ontology](ontology.ttl) and its initial [Catena-X Taxonomy](taxonomy.ttl) is not aimed at being a world model. 
+The [Catena-X Ontology](ontology.ttl) and its initial [Catena-X Taxonomy](taxonomy/taxonomy.ttl) is not aimed at being a world model. 
 Instead it is aimed as an integrative framework with a focus on Automotive Manufacturing.
 
 Therefore, our focus lies on defining practical [domain](ontology)/[use case](ontology_use_case) ontology files (and tools to process/merge them into broader contexts).
@@ -59,7 +59,7 @@ Relations are usually defined in those concepts/domain which cannot exist withou
 ## Contents
 
 - [Catena-X Merged Ontology](ontology.ttl)
-- [Catena-X Taxonomy](taxonomy.ttl)
+- [Catena-X Taxonomy](taxonomy/taxonomy.ttl)
 - [Catena-X Domain Ontologies](ontology)
 - [Modelling Documentation](docs/README.md)
 - [Ontology Tools](tools)
